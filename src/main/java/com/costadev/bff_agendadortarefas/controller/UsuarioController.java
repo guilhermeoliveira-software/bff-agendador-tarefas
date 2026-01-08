@@ -41,7 +41,7 @@ public class UsuarioController {
     @ApiResponse(responseCode = "500", description = "Erro de servidor")
     public String loginUsuario(@RequestBody LoginDTORequest usuarioDTO,
                                @RequestHeader(name = "Authorization", required = false) String token) {
-        return usuarioService.loginUsuario(usuarioDTO, token);
+        return usuarioService.loginUsuario(usuarioDTO);
     }
 
     @GetMapping

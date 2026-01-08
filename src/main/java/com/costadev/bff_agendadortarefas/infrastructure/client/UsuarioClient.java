@@ -22,8 +22,7 @@ public interface UsuarioClient {
 
 
     @PostMapping("/login")
-    String loginUsuario(@RequestBody LoginDTORequest usuarioDTO,
-                        @RequestHeader("Authorization") String token);
+    String loginUsuario(@RequestBody LoginDTORequest usuarioDTO);
 
     @GetMapping
     public UsuarioDTORequest buscarPorEmail(@RequestParam("email") String email,

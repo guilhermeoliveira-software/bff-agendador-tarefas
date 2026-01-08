@@ -13,41 +13,41 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UsuarioService {
 
-        private final UsuarioClient client;
+    private final UsuarioClient client;
 
-        public UsuarioDTORequest salvarUsuario(UsuarioDTORequest usuarioDTO) {
-            return client.salvaUsuario(usuarioDTO);
-        }
+    public UsuarioDTORequest salvarUsuario(UsuarioDTORequest usuarioDTO) {
+        return client.salvaUsuario(usuarioDTO);
+    }
 
-        public String loginUsuario(LoginDTORequest usuarioDTO, String token) {
-            return client.loginUsuario(usuarioDTO, token);
-        }
+    public String loginUsuario(LoginDTORequest usuarioDTO) {
+        return client.loginUsuario(usuarioDTO);
+    }
 
-        public UsuarioDTORequest buscaUsuarioPorEmail(String email, String token) {
-            return client.buscarUsuarioPorEmail(email, token);
-        }
+    public UsuarioDTORequest buscaUsuarioPorEmail(String email, String token) {
+        return client.buscarUsuarioPorEmail(email, token);
+    }
 
-        public void deletarUsuarioPorEmail(String email, String token) {
-            client.deletarPorEmail(email, token);
-        }
+    public void deletarUsuarioPorEmail(String email, String token) {
+        client.deletarPorEmail(email, token);
+    }
 
-        public UsuarioDTORequest atualizarDadosUsuario(String token, UsuarioDTORequest dto) {
-            return client.atualizaDadosUsuario(token, dto);
-        }
+    public UsuarioDTORequest atualizarDadosUsuario(String token, UsuarioDTORequest dto) {
+        return client.atualizaDadosUsuario(token, dto);
+    }
 
-        public EnderecoDTOResponse atualizaEndereco(Long idEndereco, EnderecoDTORequest dto, String token) {
-            return client.atualizaEndereco(dto, idEndereco, token);
-        }
+    public EnderecoDTOResponse atualizaEndereco(Long idEndereco, EnderecoDTORequest dto, String token) {
+        return client.atualizaEndereco(dto, idEndereco, token);
+    }
 
-        public TelefoneDTORequest atualizaTelefone(Long idTelefone, TelefoneDTORequest dto, String token) {
-            return client.atualizaTelefone(dto, idTelefone, token);
-        }
+    public TelefoneDTORequest atualizaTelefone(Long idTelefone, TelefoneDTORequest dto, String token) {
+        return client.atualizaTelefone(dto, idTelefone, token);
+    }
 
-        public EnderecoDTOResponse cadastroEndereco(String token, EnderecoDTORequest dto) {
-            return client.cadastroEndereco(token, dto);
-        }
+    public EnderecoDTOResponse cadastroEndereco(String token, EnderecoDTORequest dto) {
+        return client.cadastroEndereco(token, dto);
+    }
 
-        public TelefoneDTORequest cadastroTelefone(String token, TelefoneDTORequest dto) {
-            return client.cadastroTelefone(token, dto);
-        }
+    public TelefoneDTORequest cadastroTelefone(String token, TelefoneDTORequest dto) {
+        return client.cadastroTelefone(token, dto);
+    }
 }
