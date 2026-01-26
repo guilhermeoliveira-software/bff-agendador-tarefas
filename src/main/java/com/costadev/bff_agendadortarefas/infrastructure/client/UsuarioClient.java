@@ -3,9 +3,10 @@ package com.costadev.bff_agendadortarefas.infrastructure.client;
 
 import com.costadev.bff_agendadortarefas.business.dto.in.EnderecoDTORequest;
 import com.costadev.bff_agendadortarefas.business.dto.in.LoginDTORequest;
-import com.costadev.bff_agendadortarefas.business.dto.out.EnderecoDTOResponse;
 import com.costadev.bff_agendadortarefas.business.dto.in.TelefoneDTORequest;
 import com.costadev.bff_agendadortarefas.business.dto.in.UsuarioDTORequest;
+import com.costadev.bff_agendadortarefas.business.dto.out.EnderecoDTOResponse;
+import com.costadev.bff_agendadortarefas.business.dto.out.VIaCepDTOResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +23,7 @@ public interface UsuarioClient {
 
 
     @PostMapping("/login")
-    String loginUsuario(@RequestBody LoginDTORequest usuarioDTO,
-                        @RequestHeader("Authorization") String token);
+    String loginUsuario(@RequestBody LoginDTORequest usuarioDTO);
 
     @GetMapping
     public UsuarioDTORequest buscarPorEmail(@RequestParam("email") String email,
@@ -58,6 +58,10 @@ public interface UsuarioClient {
     TelefoneDTORequest cadastroTelefone(@RequestHeader("Authorization") String token,
                                         @RequestBody TelefoneDTORequest dto
     );
+
+
+    @GetMapping("/enderecos/{cep}")
+   VIaCepDTOResponse buscarDadosCep(@PathVariable("cep")String cep);
 
 }
 
