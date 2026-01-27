@@ -40,5 +40,6 @@ public class FeignError implements ErrorDecoder {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return "";
     }
 }
