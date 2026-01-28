@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class VIaCepDTOResponse {
-
     private String cep;
     private String logradouro;
     private String complemento;
