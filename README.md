@@ -128,9 +128,6 @@ Este projeto foi desenvolvido com o objetivo de:
 
 José Guilherme da Costa Oliveira
 
-LinkedIn:
-https://www.linkedin.com/in/guilherme-costa-139a63341/
-
 GitHub:
 https://github.com/guilhermeoliveira-software
 
