@@ -1,115 +1,119 @@
-# 📅 Ecossistema Agendador de Tarefas (Arquitetura BFF)
+# 📅 BFF Agendador de Tarefas
 
-## Descrição
+Camada **BFF (Backend For Frontend)** responsável por centralizar e orquestrar a comunicação entre o cliente e os microserviços do ecossistema de agendamento de tarefas.
 
-Este projeto implementa um **ecossistema de microserviços para gerenciamento e agendamento de tarefas**, utilizando o padrão **BFF (Backend For Frontend)** para centralizar a comunicação entre clientes e serviços internos. O sistema foi desenvolvido com foco em **boas práticas de arquitetura backend**, incluindo separação de responsabilidades, comunicação entre serviços e otimização de performance com cache.
+🔗 **API em produção:** [bff-agendador-tarefas.onrender.com/swagger-ui.html](https://bff-agendador-tarefas.onrender.com/swagger-ui.html)
 
-## Arquitetura do Sistema
+---
 
-O sistema é composto por três serviços principais, orquestrados para funcionar de forma coesa:
+## 📌 Sobre o Projeto
 
-### 1️⃣ BFF (Backend For Frontend)
+Este serviço atua como ponto único de entrada para o frontend, abstraindo a complexidade de comunicação com múltiplos microserviços internos. Ele agrega, transforma e entrega apenas os dados necessários para cada contexto da interface.
 
-Responsável por centralizar as requisições do cliente e orquestrar a comunicação com os serviços internos. Suas funções principais incluem:
+O projeto faz parte de um ecossistema maior composto por 4 microserviços:
 
-*   **Centralização de Endpoints**: Agrega diversas APIs de backend em um único ponto de acesso para o frontend.
-*   **Orquestração entre Serviços**: Gerencia o fluxo de dados e chamadas entre os microserviços de agendamento e notificação.
-*   **Simplificação da Comunicação**: Reduz a complexidade do frontend ao interagir com múltiplos serviços, adaptando as respostas às necessidades específicas da interface.
+| Serviço | Responsabilidade |
+|---|---|
+| **BFF** (este) | Orquestração e gateway para o frontend |
+| [Gestão de Usuários](https://github.com/guilhermeoliveira-software/usuario) | Autenticação e gerenciamento de perfis |
+| [Agendador de Tarefas](https://github.com/guilhermeoliveira-software/agendador-tarefas) | Ciclo de vida e agendamento das tarefas |
+| [Notificação por E-mail](https://github.com/guilhermeoliveira-software/notificacao) | Envio de e-mails e lembretes |
 
-### 2️⃣ Serviço de Agendamento
+---
 
-Responsável por gerenciar o ciclo de vida das tarefas, oferecendo as seguintes funcionalidades:
+## 🚀 Funcionalidades
 
-*   **Criação de Tarefas**: Permite o registro de novas tarefas com detalhes como data, hora e descrição.
-*   **Atualização de Tarefas**: Possibilita a modificação de tarefas existentes.
-*   **Listagem de Tarefas**: Fornece mecanismos para consultar e filtrar tarefas agendadas.
-*   **Remoção de Tarefas**: Permite a exclusão de tarefas do sistema.
-*   **Cache de Consultas**: Utiliza **Redis** para otimizar o desempenho de consultas frequentes, reduzindo a carga sobre o banco de dados.
+- Centralização de endpoints para o frontend
+- Orquestração de chamadas entre os microserviços via **OpenFeign**
+- Automação de tarefas críticas com **Cron Jobs**
+- Padronização de erros e respostas da API
+- Documentação interativa via **Swagger**
+- Pipeline de CI/CD automatizado com **GitHub Actions**
 
-### 3️⃣ Serviço de Notificação
+---
 
-Responsável por enviar notificações relacionadas às tarefas agendadas. Exemplos de notificações incluem:
+## 🛠️ Tecnologias
 
-*   **Envio de E-mails**: Notificações por e-mail para alertar sobre tarefas próximas ou concluídas.
-*   **Alertas de Tarefas Agendadas**: Outros tipos de alertas configuráveis para manter os usuários informados.
+- **Java 17**
+- **Spring Boot 3**
+- **Spring Cloud OpenFeign**
+- **Docker**
+- **CI/CD com GitHub Actions**
+- **Swagger / SpringDoc OpenAPI**
+- **Maven**
 
-## Tecnologias Utilizadas
+---
 
-As principais tecnologias e ferramentas utilizadas neste ecossistema incluem:
-
-*   **Java 17**: Linguagem de programação principal.
-*   **Spring Boot**: Framework para construção de aplicações Java robustas e eficientes.
-*   **Spring Security**: Para autenticação e autorização, garantindo a segurança das APIs.
-*   **Spring Data JPA**: Para persistência de dados e interação com o banco de dados.
-*   **Spring Cloud OpenFeign**: Para comunicação declarativa e resiliente entre os microserviços.
-*   **Redis**: Utilizado como cache distribuído para otimização de performance.
-*   **Docker**: Para conteinerização de todos os serviços, facilitando o desenvolvimento e a implantação.
-*   **REST APIs**: Padrão de comunicação para as interfaces dos serviços.
-*   **Maven**: Ferramenta de automação de build.
-
-## Estrutura do Projeto
-
-A estrutura do projeto segue as convenções de um projeto Spring Boot, com pacotes organizados por funcionalidade e inspirados na Arquitetura Hexagonal (Ports and Adapters):
+## 📁 Estrutura do Projeto
 
 ```
 src/
-├── main/
-│   ├── java/
-│   │   └── com/costadev/bffagendadortarefas/
-│   │       ├── business/             # Lógica de negócio e serviços
-│   │       ├── controller/           # Controladores REST e endpoints do BFF
-│   │       └── infrasctruture/       # Configurações de infraestrutura e exceções
-│   └── resources/            # Arquivos de configuração e templates
-├── test/
-│   └── java/
-│       └── com/costadev/bffagendadortarefas/ # Testes unitários e de integração
-└── ...
+└── main/
+    └── java/
+        └── com/costadev/bffagendadortarefas/
+            ├── business/          # Lógica de negócio e orquestração
+            ├── controller/        # Endpoints REST expostos ao frontend
+            └── infrastructure/    # Clientes Feign, configurações e exceções
 ```
 
-## Como Executar o Projeto
+---
 
-Para executar o ecossistema completo localmente, siga os passos abaixo:
+## ⚙️ Como Executar Localmente
 
-1.  **Pré-requisitos**:
-    *   Java Development Kit (JDK) 17 ou superior.
-    *   Docker e Docker Compose instalados.
-    *   Git.
+### Pré-requisitos
+- Java 17+
+- Docker e Docker Compose
 
-2.  **Clonar o repositório**:
+### Passos
 
-    ```bash
-    git clone https://github.com/guilhermeoliveira-software/bff-agendador-tarefas.git
-    cd bff-agendador-tarefas
-    ```
+```bash
+# Clone o repositório
+git clone https://github.com/guilhermeoliveira-software/bff-agendador-tarefas.git
+cd bff-agendador-tarefas
 
-3.  **Subir os serviços com Docker Compose**:
+# Configure as variáveis de ambiente
+cp .env.example .env
+# Edite o .env com as URLs dos outros serviços
 
-    ```bash
-    docker-compose up --build
-    ```
+# Suba com Docker Compose
+docker-compose up --build
+```
 
-    Este comando irá construir as imagens Docker para cada serviço (BFF, Agendador e Notificação), iniciar os contêineres e configurar as dependências (como o Redis e o banco de dados). A aplicação BFF estará disponível em `http://localhost:8080`.
+A API estará disponível em: `http://localhost:8083`
+Documentação Swagger: `http://localhost:8083/swagger-ui.html`
 
-## Exemplo de Fluxo de Requisição
+---
 
-Um fluxo típico de requisição no ecossistema ocorre da seguinte forma:
+## 🌍 Variáveis de Ambiente
 
-1.  **Cliente envia requisição para o BFF**: O frontend (ou outro cliente) faz uma chamada para um endpoint exposto pelo BFF.
-2.  **BFF processa a requisição**: O BFF recebe a requisição, realiza validações e pré-processamentos necessários.
-3.  **BFF chama o Serviço de Agendamento**: O BFF se comunica com o Serviço de Agendamento para realizar operações relacionadas a tarefas.
-4.  **Serviço de Agendamento consulta banco ou cache Redis**: O Serviço de Agendamento verifica o cache Redis para dados recentes ou consulta o banco de dados para informações persistidas.
-5.  **Caso necessário, aciona Serviço de Notificação**: Se a operação exigir, o Serviço de Agendamento pode acionar o Serviço de Notificação para enviar alertas ou e-mails.
+| Variável | Descrição |
+|---|---|
+| `USUARIO_URL` | URL do serviço de usuários |
+| `AGENDADOR_URL` | URL do serviço de agendamento |
+| `NOTIFICACAO_URL` | URL do serviço de notificação |
+| `CRON_HORARIO` | Expressão cron para agendamentos automáticos |
+| `USUARIO_EMAIL` | E-mail de autenticação entre serviços |
+| `USUARIO_SENHA` | Senha de autenticação entre serviços |
 
-## Objetivo do Projeto
+---
 
-Este projeto foi desenvolvido com os seguintes objetivos educacionais e práticos:
+## 🔄 Fluxo de Requisição
 
-*   **Praticar Desenvolvimento Backend com Microsserviços**: Experiência na construção e gestão de múltiplas aplicações interconectadas.
-*   **Aplicar Boas Práticas de Arquitetura**: Implementação de padrões como BFF e princípios da Arquitetura Hexagonal.
-*   **Trabalhar com Cache Distribuído**: Utilização do Redis para otimização de performance e escalabilidade.
-*   **Implementar Comunicação entre Serviços**: Uso de OpenFeign para comunicação eficiente e robusta entre os microserviços.
+```
+Cliente / Frontend
+      │
+      ▼
+  BFF (este serviço)
+      │
+      ├──► Serviço de Usuários  (autenticação / perfis)
+      ├──► Serviço de Agendador (CRUD de tarefas)
+      └──► Serviço de Notificação (e-mails / lembretes)
+```
 
+---
 
-## Autor
+## 👨‍💻 Autor
 
-José Guilherme da Costa Oliveira
+**José Guilherme Da Costa Oliveira**
+- 💼 [LinkedIn](https://www.linkedin.com/in/guilherme-costa-oliveiraa/)
+- 🐙 [GitHub](https://github.com/guilhermeoliveira-software)
